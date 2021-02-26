@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="oracle" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!-- 该配置会使生产的Mapper自动继承MyMapper -->
+            <property name="mappers" value="com.weyoung.wxapp.common.config.MyMapper" />
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="false"/>
+
+            <property name="notEmpty" value="true"/>
+        </plugin>
+        <!-- 阻止生成自动注释 -->
+        <commentGenerator>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!-- 数据库链接地址账号密码 -->
+        <jdbcConnection
+
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/bsalary?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+                userId="root"
+                password="ly0419">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成Model类存放位置 -->
+        <javaModelGenerator targetPackage="com.weyoung.wxapp.welfare.domain" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件存放位置 -->
+        <sqlMapGenerator targetPackage="mapper.welfare" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成Dao类存放位置 -->
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件的代码
+            type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+            type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.weyoung.wxapp.welfare.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 配置需要生成的表 -->
+
+        <table tableName="salary" domainObjectName="Salary" mapperName="SalaryDao">
+            <generatedKey column="salary_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="salary_list" domainObjectName="SalaryList" mapperName="SalaryListDao">
+            <generatedKey column="list_id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="user2" domainObjectName="User2" mapperName="User2Dao">
+            <generatedKey column="user_id" sqlStatement="JDBC"/>
+        </table>
+<!--        <table tableName="category" domainObjectName="Category" mapperName="CategoryDao">-->
+<!--            <generatedKey column="category_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="goods" domainObjectName="Goods" mapperName="GoodsDao">-->
+<!--            <generatedKey column="goods_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="goods_detail" domainObjectName="GoodsDetail" mapperName="GoodsDetailDao">-->
+<!--            <generatedKey column="detail_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="user" domainObjectName="User" mapperName="UserDao">-->
+<!--            <generatedKey column="user_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="orders" domainObjectName="Orders" mapperName="OrdersDao">-->
+<!--            <generatedKey column="order_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="repair" domainObjectName="Repair" mapperName="RepairDao">-->
+<!--            <generatedKey column="repair_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+<!--        <table tableName="orders_detail" domainObjectName="OrdersDetail" mapperName="OrdersDetailDao">-->
+<!--            <generatedKey column="detail_id" sqlStatement="JDBC"/>-->
+<!--        </table>-->
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.ServiceListDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.ServiceList">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="img" jdbcType="LONGVARCHAR" property="img" />
+  </resultMap>
+
+</mapper>

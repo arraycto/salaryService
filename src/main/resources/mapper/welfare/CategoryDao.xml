@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.CategoryDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.Category">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+  </resultMap>
+  <select id="getCategory" resultType="com.weyoung.wxapp.welfare.domain.Category">
+    select * from category
+  </select>
+</mapper>

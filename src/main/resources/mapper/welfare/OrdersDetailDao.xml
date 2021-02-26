@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.OrdersDetailDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.OrdersDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="detail_id" jdbcType="INTEGER" property="detailId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+  </resultMap>
+  <select id="selectByOrdersId" resultType="com.weyoung.wxapp.welfare.domain.OrdersDetail">
+    select * from orders_detail
+    where order_id = #{repairId}
+    limit 1
+  </select>
+</mapper>

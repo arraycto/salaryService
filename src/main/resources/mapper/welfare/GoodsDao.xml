@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+  </resultMap>
+  <select id="goodsList" resultType="com.weyoung.wxapp.welfare.domain.Goods">
+    select
+    goods_id,
+    goods_name,
+    img,
+    category_id,
+    price,
+    create_time
+    from goods
+    where category_id =#{categoryId}
+    ORDER BY create_time DESC,goods_id,price DESC
+  </select>
+  <select id="seeGoods" resultType="com.weyoung.wxapp.welfare.vo.GoodsVo">
+    select
+    goods_name,
+    img,
+    price,
+    category_id,
+    create_time,
+    detail_img
+    from goods g left join goods_detail d
+    on g.goods_id = d.goods_id
+    where g.goods_id = #{goodsId}
+  </select>
+  <select id="search" resultType="com.weyoung.wxapp.welfare.domain.Goods">
+    select *
+    from goods
+    where goods_name LIKE concat('%', #{goodsName}, '%')
+  </select>
+</mapper>

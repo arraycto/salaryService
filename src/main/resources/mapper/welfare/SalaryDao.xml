@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.SalaryDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.Salary">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="salary_id" jdbcType="INTEGER" property="salaryId" />
+    <result column="work_id" jdbcType="VARCHAR" property="workId" />
+    <result column="salary" jdbcType="VARCHAR" property="salary" />
+    <result column="time" jdbcType="TIME" property="time" />
+    <result column="costmoney" jdbcType="VARCHAR" property="costmoney" />
+    <result column="word" jdbcType="VARCHAR" property="word" />
+    <result column="total" jdbcType="VARCHAR" property="total" />
+  </resultMap>
+  <update id="decard">
+			update salary,user2
+set salary.time=salary.time+#{time},salary.salary=salary.salary+#{time}*20,user2.salary=salary.salary,salary.word=#{word},user2.status=1
+where salary.work_id=user2.workId= #{workId}
+  </update>
+  <select id="getSalary" resultType="com.weyoung.wxapp.welfare.domain.Salary">
+      select  * from salary
+
+    </select>
+</mapper>

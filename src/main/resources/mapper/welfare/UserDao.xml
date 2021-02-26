@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="integral" jdbcType="INTEGER" property="integral" />
+    <result column="recommender_id" jdbcType="INTEGER" property="recommenderId" />
+    <result column="first_order" jdbcType="INTEGER" property="firstOrder" />
+    <result column="freezing_integral" jdbcType="INTEGER" property="freezingIntegral" />
+    <result column="sign_in" jdbcType="INTEGER" property="signIn" />
+    <result column="sign_in_num" jdbcType="INTEGER" property="signInNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <select id="findByOpenid" resultType="com.weyoung.wxapp.welfare.domain.User">
+      select * from user where openid = #{openid} limit 1
+   </select>
+    <update id="updateState">
+        update repair
+        set state = 0
+        where repair_id = #{repairId}
+    </update>
+    <update id="updateDesc">
+        update repair_detail
+        set description = #{description}
+        where repair_id = #{repairId}
+    </update>
+    <update id="updateIntegral">
+        update user
+        set integral = integral + #{integral}
+        where user_id = #{userId}
+    </update>
+    <update id="updateFreezingIntegral">
+        update user
+        set freezing_integral = freezing_integral + 10
+        where user_id = #{recommenderId}
+    </update>
+    <select id="selectByUserId" resultType="com.weyoung.wxapp.welfare.vo.RecommenderVo">
+        select
+        user_name,
+        create_time
+        from user
+        where recommender_id = #{userId}
+        and first_order = #{firstOrder}
+    </select>
+    <update id="signIn">
+        update user
+        set integral = integral + 1
+        ,sign_in = 1
+        ,sign_in_num = sign_in_num + 1
+        where user_id = #{userId}
+        and sign_in = 0
+    </update>
+    <update id="updateReduceIntegral">
+        update user
+        set integral = integral-#{integral}
+        where user_id = #{userId}
+        and integral >= #{integral}
+    </update>
+    <update id="updateByFirstOrder">
+         update user
+         set integral = integral + #{integral},
+         first_order = 1,
+         freezing_integral = freezing_integral - #{integral}
+         where user_id = #{userId}
+    </update>
+    <update id="updateWork">
+        update user
+        set
+            <if test="workState !=null">
+                work_state = #{workState},
+            </if>
+            <if test="workAddress !=null">
+                work_address = #{workAddress},
+            </if>
+            <if test="workDescription !=null">
+                work_description = #{workDescription},
+            </if>
+            <if test='position !=null and position != ""'>
+                position = #{position},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+        work_time = now()
+        where user_id = #{userId}
+
+    </update>
+</mapper>

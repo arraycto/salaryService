@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.SalaryListDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.SalaryList">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="list_id" jdbcType="INTEGER" property="listId" />
+    <result column="work_id" jdbcType="VARCHAR" property="workId" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="word" jdbcType="VARCHAR" property="word" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+    <select id="getList" resultType="com.weyoung.wxapp.welfare.domain.SalaryList">
+      select * from salary_list
+    </select>
+
+  <update id="reget">
+          update salary_list
+      set word = #{word} , status = 1
+      where work_id = #{workId}
+  </update>
+
+  <insert id="insertcost" useGeneratedKeys="true">
+     insert into salary_list (work_id,word, money,status) VALUES(#{workId},#{word},#{money},0);
+  </insert>
+
+</mapper>

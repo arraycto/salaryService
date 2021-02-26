@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.User2Dao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.User2">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="workId" jdbcType="VARCHAR" property="workid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="salary" jdbcType="VARCHAR" property="salary" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+      <result column="password" jdbcType="VARCHAR" property="password" />
+      <result column="word" jdbcType="VARCHAR" property="word" />
+  </resultMap>
+
+    <update id="insertcost">
+         update user2
+      set salary = user2.salary-#{money}
+      where workId = #{workId}
+
+    </update>
+    <update id="gitUser">
+         update user2
+      set dept = #{dept}
+      where workId = #{workId}
+
+    </update>
+    <select id="userList" resultType="com.weyoung.wxapp.welfare.domain.User2">
+ select *
+    from user2
+    </select>
+    <select id="search" resultType="com.weyoung.wxapp.welfare.domain.User2">
+ select *
+    from user2
+        <where>
+            <if test="workId!= null and salary!= null and username!= null and name!= null and phone!= null ">
+                and workId LIKE concat('%', #{workId}, '%')
+                or salary LIKE concat('%', #{salary}, '%')
+                or username LIKE concat('%', #{username}, '%')
+                or name LIKE concat('%', #{name}, '%')
+                or phone LIKE concat('%', #{phone}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="login" resultType="com.weyoung.wxapp.welfare.domain.User2">
+         select *
+    from user2 where username = #{username} and password=#{password}
+
+
+    </select>
+    <insert id="regist" useGeneratedKeys="true"  >
+
+insert into user2 (username, password) VALUES(#{username},#{password});
+
+    </insert>
+    <delete id="deleteUser">
+    delete from user2 where workId =#{workId}
+</delete>
+
+    <insert id="insertuser" useGeneratedKeys="true">
+     insert into user2 (workId,name, username,dept,password) VALUES(#{workId},#{name},#{username},#{dept},#{password});
+  </insert>
+    <select id="getcard" resultType="com.weyoung.wxapp.welfare.domain.User2">
+ select status,dept,username,workId
+    from user2
+    </select>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.welfare.dao.RepairDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.welfare.domain.Repair">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="repair_id" jdbcType="INTEGER" property="repairId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="repair_type" jdbcType="VARCHAR" property="repairType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="state" jdbcType="SMALLINT" property="state" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="repair_time" jdbcType="VARCHAR" property="repairTime" />
+    <result column="s" jdbcType="SMALLINT" property="s" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="img" jdbcType="LONGVARCHAR" property="img" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="integral" jdbcType="INTEGER" property="integral" />
+  </resultMap>
+  <select id="selectByUserId" resultType="com.weyoung.wxapp.welfare.domain.Repair">
+    select * from repair
+    where user_id = #{userId}
+    <if test="state == 0 or state == 1">
+      and state in (0,1)
+    </if>
+    <if test="state == 2">
+      and state = 2
+    </if>
+    <if test="state == 3">
+      and state = 3
+    </if>
+    order by create_time desc
+  </select>
+  <select id="selectByAdminId" resultType="com.weyoung.wxapp.welfare.domain.Repair">
+    select * from repair
+    where admin_id = #{userId}
+    <if test="state == 0 or state == 1">
+      and state = 1
+    </if>
+    <if test="state == 2">
+      and state = 2
+    </if>
+    <if test="state == 3">
+      and state = 3
+    </if>
+    order by create_time desc
+  </select>
+
+  <select id="selectByTel" resultType="com.weyoung.wxapp.welfare.domain.Repair">
+    select *
+    from repair
+    <where>
+      <if test="_parameter!= null and _parameter!= ''">
+        and tel LIKE concat('%', #{tel}, '%')
+        or address LIKE concat('%', #{tel}, '%')
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+</mapper>

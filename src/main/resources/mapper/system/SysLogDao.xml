@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weyoung.wxapp.system.dao.SysLogDao">
+  <resultMap id="BaseResultMap" type="com.weyoung.wxapp.system.domain.SysLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="TIME" jdbcType="DECIMAL" property="time" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="OPERATION" jdbcType="LONGVARCHAR" property="operation" />
+    <result column="METHOD" jdbcType="LONGVARCHAR" property="method" />
+    <result column="PARAMS" jdbcType="LONGVARCHAR" property="params" />
+  </resultMap>
+    <insert id="insertLogWithoutTime">
+      INSERT INTO t_log  ( USERNAME,TIME,IP,location,OPERATION,METHOD,PARAMS )
+       VALUES( #{username}, #{time}, #{ip}, #{location}, #{operation}, #{method}, #{params})
+    </insert>
+    <select id="findLastLoginTime" resultType="java.util.Date">
+      select CREATE_TIME from t_log
+      where USERNAME like concat('%',#{homeName},'%') and OPERATION='小程序登录'
+      order by CREATE_TIME desc limit 1,1
+    </select>
+</mapper>
